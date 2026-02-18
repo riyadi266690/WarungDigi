@@ -1,58 +1,13 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-C5IBVj-n.css",
+    "file": "assets/app-URelGrwa.css",
     "src": "resources/css/app.css",
-    "isEntry": true,
-    "name": "app",
-    "names": [
-      "app.css"
-    ]
+    "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-lZwQc8_d.js",
+    "file": "assets/app-C6cLCP43.js",
     "name": "app",
     "src": "resources/js/app.js",
-    "isEntry": true,
-    "dynamicImports": [
-      "resources/js/views/Transaction.vue",
-      "resources/js/views/Home.vue",
-      "resources/js/views/Login.vue"
-    ],
-    "css": [
-      "assets/app-tn0RQdqM.css"
-    ]
-  },
-  "resources/js/views/Home.vue": {
-    "file": "assets/Home-pF3kOmXC.js",
-    "name": "Home",
-    "src": "resources/js/views/Home.vue",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.js"
-    ]
-  },
-  "resources/js/views/Login.vue": {
-    "file": "assets/Login-B9biBcF3.js",
-    "name": "Login",
-    "src": "resources/js/views/Login.vue",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.js"
-    ],
-    "css": [
-      "assets/Login-CAM9jR7e.css"
-    ]
-  },
-  "resources/js/views/Transaction.vue": {
-    "file": "assets/Transaction-BlTUngJL.js",
-    "name": "Transaction",
-    "src": "resources/js/views/Transaction.vue",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.js"
-    ],
-    "css": [
-      "assets/Transaction-om02ei0v.css"
-    ]
+    "isEntry": true
   }
 }

@@ -8,45 +8,47 @@ use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
+    public function showLogin()
+    {
+        return view('auth.login');
+    }
+
     public function login(Request $request)
     {
-        $request->validate([
+        $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
 
-        if (!Auth::attempt($request->only('email', 'password'))) {
-            throw ValidationException::withMessages([
-                'email' => ['Invalid credentials.'],
-            ]);
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+
+            if (!Auth::user()->is_admin) {
+                Auth::logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+
+                return back()->withErrors([
+                    'email' => 'Access denied. Administrators only.',
+                ])->onlyInput('email');
+            }
+
+            return redirect()->intended('dashboard');
         }
 
-        $user = Auth::user();
-
-        if (!$user->is_admin) {
-            Auth::logout();
-            throw ValidationException::withMessages([
-                'email' => ['Access denied. Administrators only.'],
-            ]);
-        }
-
-        $token = $user->createToken('admin-token')->plainTextToken;
-
-        return response()->json([
-            'user' => $user,
-            'token' => $token,
-        ]);
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->onlyInput('email');
     }
 
     public function logout(Request $request)
     {
-        $request->user()->currentAccessToken()->delete();
+        Auth::logout();
 
-        return response()->json(['message' => 'Logged out successfully']);
-    }
+        $request->session()->invalidate();
 
-    public function user(Request $request)
-    {
-        return $request->user();
+        $request->session()->regenerateToken();
+
+        return redirect('/');
     }
 }
